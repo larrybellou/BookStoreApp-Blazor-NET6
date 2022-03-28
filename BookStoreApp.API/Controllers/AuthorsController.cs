@@ -55,11 +55,12 @@ namespace BookStoreApp.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAuthor(int id, AuthorUpdateDTO authorDTO)
         {
-            var author = mapper.Map<Author>(authorDTO);
-            if (id != author.Id)
+            if (id != authorDTO.Id)
             {
                 return BadRequest();
             }
+
+            var author = mapper.Map<Author>(authorDTO);
 
             _context.Entry(author).State = EntityState.Modified;
 
