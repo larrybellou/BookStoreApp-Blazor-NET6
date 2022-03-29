@@ -33,7 +33,7 @@ namespace BookStoreApp.API.Controllers
         {
             try
             {
-                var books = await _context.Books.ToListAsync();
+                var books = await _context.Books.Include(a=>a.Author).ToListAsync();
                 var bookDTOs = mapper.Map<IEnumerable<BookReadOnlyDTO>>(books);
                 return Ok(bookDTOs);
             }
@@ -46,12 +46,12 @@ namespace BookStoreApp.API.Controllers
 
         // GET: api/Books/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<BookReadOnlyDTO>> GetBook(int id)
+        public async Task<ActionResult<BookDetailDTO>> GetBook(int id)
         {
             try
             {
-                var book = await _context.Books.FindAsync(id);
-                var bookDTO = mapper.Map<BookReadOnlyDTO>(book);
+                var book = await _context.Books.Include(q=>q.Author).FirstOrDefaultAsync(q=>q.Id == id);
+                var bookDTO = mapper.Map<BookDetailDTO>(book);
 
                 if (book == null)
                 {
