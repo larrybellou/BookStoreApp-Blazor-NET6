@@ -31,7 +31,7 @@ namespace BookStoreApp.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AuthorReadOnlyDTO>>> GetAuthors()
         {
-            logger.LogInformation($"Request to {nameof(GetAuthors)}");
+            //logger.LogInformation($"Request to {nameof(GetAuthors)}");
             try
             {
                 var authors = await _context.Authors.ToListAsync();
@@ -40,7 +40,7 @@ namespace BookStoreApp.API.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, $"Error performing {nameof(GetAuthors)}");
+                //logger.LogError(ex, $"Error performing {nameof(GetAuthors)}");
                 return StatusCode(500, Messages.Error500Message);
             }
         }
